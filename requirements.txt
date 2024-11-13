@@ -1,0 +1,16 @@
+numpy
+scipy
+pygame
+serial
+pyserial
+matplotlib
+protobuf==3.20.2
+scipy
+dubins
+opencv-python
+vext
+pandas==0.16.2
+pycairo 
+PyGObject
+rc-robosim
+rsoccer-gym
