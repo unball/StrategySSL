@@ -8,11 +8,10 @@ import time
 
 class SerialRadio():
   """Implementa a comunicação usando simplesmente a interface serial"""
-  def __init__(self, control = False, debug = False):
+  def __init__(self, debug = False):
 
     self.serial = None
     self.failCount = 0
-    self.control = control
     self.debug = debug
 
   def closeSerial(self):

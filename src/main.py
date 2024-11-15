@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.INFO)
 # Argumentos
 parser = argparse.ArgumentParser(description='ALP-Winners system')
 parser.add_argument('--team-color', dest='team_color',
-                    type=str, choices=['yellow', 'blue'], required=True, help='Team color.')
+                    type=str, choices=['yellow', 'blue'], help='Team color.')
 
 parser.add_argument('--immediate-start', dest='immediate_start',
                     action='store_const', const=True, default=True, help='If robots should start moving without VSSReferee telling so.')
@@ -65,19 +65,9 @@ print(args.n_robots)
 
 # Instancia o programa principal
 loop = Loop(
-    team_yellow=team_yellow,
-    immediate_start=args.immediate_start,
-    static_entities=args.static_entities,
-    referee=args.referee,
-    firasim=args.firasim,
-    vssvision=args.vssvision,
-    mainvision=args.mainvision,
-    simulado=args.simulado,
-    control=args.control,
     debug=args.debug,
     port=args.port,
     n_robots=args.n_robots,
-    mirror=mirror
 )
 
 loop.run()
