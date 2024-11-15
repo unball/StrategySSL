@@ -41,20 +41,22 @@ class SerialRadio():
     checksum = 0
 
     # Vetor de dados
-    data = [0] * 6
+    # TODO: verificar se tamanho esta correto para o caso de usar apenas 1 robo
+    data = [0] * 3
 
     # Adiciona as velocidades ao vetor de dados
 
-    for i,(v,w) in enumerate(msg):
+    for i,(x_dot, y_dot, omega_dot) in enumerate(msg):
       if(self.debug and self.serial is not None):
-        print(f"ROBO {i} | v {v} | w {w}")
+        print(f"ROBO {i} | v_x {x_dot} | v_y {y_dot} |  omega_dot {omega_dot}")
       if i < len(n_robots):
-        v,w = encodeSpeeds(v, w)
-        data[n_robots[i]] = v
-        data[n_robots[i]+3] = w
+        x_dot, y_dot, omega_dot = encodeSpeeds(x_dot, y_dot, omega_dot)
+        data[n_robots[i]] = x_dot
+        data[n_robots[i]+1] = y_dot
+        data[n_robots[i]+2] = omega_dot 
 
       # Computa o checksum
-      checksum += v+w
+      checksum += x_dot + y_dot + omega_dot
 
     # Concatena o vetor de dados à mensagem
     for v in data: message += (v).to_bytes(2,byteorder='little', signed=True)
@@ -72,6 +74,7 @@ class SerialRadio():
           result = list(map(lambda x:int(x), response.replace("\n","").split("\t")))
           if len(result) != 3: print("ACK de tamanho errado")
           else:
+            # TODO: verificar a condição abaixo para o caso atual de 1 robo
             if result[0] != limitedChecksum or result[1] != data[0] or result[2] != data[3]:
               print("Enviado:\t" + str(limitedChecksum) + "\t" + str(data[0]) + "\t" + str(data[3]))
               print("Falha no checksum")

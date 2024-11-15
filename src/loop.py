@@ -62,6 +62,10 @@ class Loop:
 
         control_output = [robot.entity.control.actuate(robot) for robot in self.world.team if robot is not None]
 
+        # Para testar se a comunicação está funcionando a partir daqui, basta descomentar a linha abaixo
+        # A linha abaixo seta para enviar uma velocidade vx = 10 m/s (em teoria) para o robo 
+        # control_output = [(10,0,0)]
+
         if self.execute:
             for robot in self.world.raw_team: 
                 if robot is not None: robot.turnOn()   

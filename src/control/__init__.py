@@ -14,9 +14,6 @@ class Control(ABC):
     def actuate(self, robot):
         if not robot.on: return (0, 0,0)
 
-        v, w = self.output(robot)
+        vx, vy, w = self.output(robot)
         
-        robot.lastControlLinVel = v
-        w = self.world.field.side * w * -1
-        
-        return v, w
+        return vx, vy , w
