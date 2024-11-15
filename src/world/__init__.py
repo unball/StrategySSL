@@ -101,21 +101,27 @@ class World:
         for robot_id in range(3):
             #Atualiza as variaveis de estado do sistema
             yellow[robot_id].update(
-                message['robotsYellow'][robot_id]['x']
-                message['robotsYellow'][robot_id]['y']
-                message['robotsYellow'][robot_id]['theta']
+                message['robotsYellow'][robot_id]['x'],
+                message['robotsYellow'][robot_id]['y'],
+                message['robotsYellow'][robot_id]['theta'],
+                yellow[robot_id].inst_vx,
+                yellow[robot_id].inst_vy,
+                yellow[robot_id].inst_w
             )            
             blue[robot_id].update(
-                message['robotsBlue'][robot_id]['x']
-                message['robotsBLue'][robot_id]['y']
-                message['robotsBLue'][robot_id]['theta']
+                message['robotsBlue'][robot_id]['x'],
+                message['robotsBLue'][robot_id]['y'],
+                message['robotsBLue'][robot_id]['theta'],
+                blue[robot_id].inst_vx,
+                blue[robot_id].inst_vy,
+                blue[robot_id].inst_w
             )
 
             yellow[robot_id].calc_velocities(self.dt)
             blue[robot_id].calc_velocities(self.dt)
        
        #Atualiza as variaveis da bola
-        self.ball.update_element(message["ball"]["x"], message["ball"]["y"])
+        self.ball.update_element(message["ball"]["x"], message["ball"]["y"],self.ball.inst_vx,self.ball.inst_vy)
         self.ball.calc_velocities(self.dt)
 
         #Atualiza o tempo atual
