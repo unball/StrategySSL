@@ -6,6 +6,7 @@ import time
 import sys
 import signal
 from client.client_pickle import ClientPickle
+from UnBall/Client/UnBallSSLclient/game_controller import gc_sync
 
 class Loop:
 
@@ -41,6 +42,30 @@ class Loop:
         self.radio = SerialRadio(control = control, debug = self.world.debug)
 
         self.pclient = ClientPickle(port)
+
+        self.gc = gc_sync.SyncGameController()
+
+        self.control_output = [None,None,None]
+    
+    def send_state(self,velocities):
+        self.control_output = velocities
+        for robot in self.world.raw_team: 
+            if robot is not None: robot.turnOn()   
+            self.radio.send(self.world.n_robots, control_output)
+    
+    def determine_state(self):
+        
+        message = self.gc.get_state()["command"]
+
+        if message == '0': #Halt
+            self.send_state([0,0,0])
+
+        elif message == "1": #Stop
+            self.send_state([0.1,0.1,0.1])
+
+        elif message == "2": #Start
+            self.send_state([10,0,0])
+            time.sleep(5)
 
     # Função do sinal de interrupção (faz com que pare o robô imediatamente, (0,0) )
     def handle_SIGINT(self, signum, frame):

@@ -1,5 +1,5 @@
-from .elements import *
-from tools import RangeKutta
+from elements import *
+from tools.__init__ import RangeKutta
 class Field:
     def __init__(self, side):
         self.width = 1.67
