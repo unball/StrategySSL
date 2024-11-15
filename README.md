@@ -7,10 +7,6 @@ Desenvolvido em Python3, pode ser executado em sistemas Linux.
 Precisa ser executado com a visão desenvolvida para a VSSS chamada de vsss-vision e com o juiz virtual
 VSSSReferee [colocar links]
 
-## Histórico de competições onde foi utilizado
-
-- LARC 2023
-
 ## Para executar
 
 Primeiro, é necessário instalar as bibliotecas necessárias para executar o sistema. Antes, recomendamos
@@ -18,11 +14,13 @@ a configuração de um ambiente virtual tal como se segue:
 
 ```bash
 sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt-get install python3.8 python3.8-dev python3.8-venv
-sudo apt-get install python3.8 python3-dev python3-venv
+
+```bash
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt-get install python3.10 python3.10-dev python3.10-venv
 
 #Cria o ambiente virutal
-python3.8 -m venv env
+python3.10 -m venv env
 
 # Entra no ambiente virtual
 source env/bin/activate
@@ -37,21 +35,13 @@ Depois de ativar o ambiente virtual, podemos instalar as dependências nele com 
 pip3 install -r requirements.txt
 ```
 
-Dentro do ambiente virtual, precisamos compilar os arquivos proto para comunicar com o
-VSSSReferee e vsss-vision:
-
-```bash
-cd src/client/protobuf
-./protobuf.sh
-```
-
 Em caso de erro "bash ./protobuf.sh: Permission denied", rode:
 ```
 cd src/client/protobuf
 chmod +x protobuf.sh
 ```
 
-Antes de realizar a execução, cuidados sobre o [serial](https://github.com/unball/UnBrain/blob/main/src/communication/serialWifi.py) atualize o chmod com seu password sudo e por fim execute o comando bash abaixo: 
+Antes de realizar a execução, cuidados sobre o [serial](/src/communication/serialWifi.py) atualize o chmod com seu password sudo e por fim execute o comando bash abaixo: 
 ```bash
 sudo adduser $USER dialout
 ```

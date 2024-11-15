@@ -1,5 +1,4 @@
 numpy
-scipy
 pygame
 serial
 pyserial
@@ -7,9 +6,3 @@ matplotlib
 protobuf==3.20.2
 scipy
 dubins
-opencv-python
-vext
-pycairo 
-PyGObject
-rc-robosim
-rsoccer-gym
