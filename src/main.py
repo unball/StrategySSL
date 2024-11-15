@@ -1,7 +1,6 @@
 from loop import Loop
 import argparse
 import logging
-import client.gui
 
 logging.basicConfig(level=logging.INFO)
 
@@ -45,7 +44,7 @@ parser.add_argument('--port', dest='port', type=int, default=5001, help='Port nu
 parser.add_argument('--mirror', dest='mirror', action='store_const',
                     const=True, default=False, help='If vision is mirrored or not. Affects angles.')
                     
-parser.add_argument('--n_robots', dest='n_robots', type=str, default="0,1,2" , help='Number of robots for each time in the match.')
+parser.add_argument('--n_robots', dest='n_robots', type=str, default="0,1,2" , required=True, help='Number of robots for each time in the match.')
 
 
 args = parser.parse_args()
@@ -66,7 +65,6 @@ print(args.n_robots)
 
 # Instancia o programa principal
 loop = Loop(
-    draw_uvf=False, 
     team_yellow=team_yellow,
     immediate_start=args.immediate_start,
     static_entities=args.static_entities,

@@ -2,7 +2,6 @@ from ctypes import *
 import time
 from copy import copy
 import constants
-import client.firasim
 import signal
 import sys
 

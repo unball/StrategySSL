@@ -1,7 +1,6 @@
 import time
 from tools.interval import Interval
 from tools import adjustAngle, norml, derivative, angularDerivative, unit, angl, ang, insideRect, angError
-from control.UFC import UFC_Simple
 import numpy as np
 import math
 
@@ -225,7 +224,7 @@ class TeamRobot(Robot):
         self.field = field
 
     def stop(self):
-        self.radio.send([(0,0) for robot in self.world.team])
+        self.radio.send([(0,0,0) for robot in self.world.team])
 
     def updateEntity(self, entityClass, forced_update=False, **kwargs):
         newEntity = entityClass(self.world, self, **kwargs)

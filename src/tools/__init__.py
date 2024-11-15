@@ -140,12 +140,13 @@ def bestWithHyst(state: int, possibleStates: list, possibleStatesDistances: list
   else: best = 0
   return possibleStates[best]
 
-def encodeSpeeds(v: float, w: float) -> (int, int):
+def encodeSpeeds(vx: float, vy: float, w: float) -> (int, int,int):
   
-  venc = int(v/2 * 32767)
+  venc_x = int(vx/2 * 32767)
+  venc_y = int(vy/2 * 32767)
   wenc = int(w/64 * 32767)
 
-  return int((1 if venc >= 0 else -1) * (abs(venc) % 32767)), int((1 if wenc >= 0 else -1) * (abs(wenc) % 32767))
+  return int((1 if venc_x >= 0 else -1) * (abs(venc_x) % 32767)), int((1 if venc_y >= 0 else -1) * (abs(venc_y) % 32767)), int((1 if wenc >= 0 else -1) * (abs(wenc) % 32767))
                                                                   
 def RangeKutta(pos, vel, th, T, delta_t, w=0):
 
