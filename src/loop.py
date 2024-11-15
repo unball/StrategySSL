@@ -60,9 +60,9 @@ class Loop:
         # Executa estratégia
         self.strategy.update(self.world)
 
-        control_output = [robot.entity.control.actuate(robot) for robot in self.world.team if robot is not None]
+        control_output = [robot.entity.control.actuate(robot) for robot in self.world.team if robot is not None] 
 
-        # Para testar se a comunicação está funcionando a partir daqui, basta descomentar a linha abaixo
+        #[ATENCAO] Para testar se a comunicação está funcionando a partir daqui, basta descomentar a linha abaixo
         # A linha abaixo seta para enviar uma velocidade vx = 10 m/s (em teoria) para o robo 
         # control_output = [(10,0,0)]
 
@@ -101,4 +101,18 @@ class Loop:
             if self.draw_uvf:
                 self.UVF_screen.updateScreen()
 
+        ##[ATENCAO] Se conseguirmos receber start ou stop do game controller pode ser que role algo tipo 
+        # if(recebemos comando de start) -> enviar control_output[(10,0,0)] por 5segundos e depois control_output[(-10,0,0)] 
+        # em teoria com isso o robo vai para um lado por 5 segundos e depois para outro por 5 segundos. Nesse caso tem que comentar self.loop 
+        # Vai ficar um codigo dentro do def run(): tipo assim
+        # i = 1
+        # for (5 sengundos):
+            # control_output = [(10*i,0,0)]
+        # i *= -1
+        # if self.execute:
+            # for robot in self.world.raw_team: 
+            #     if robot is not None: robot.turnOn()   
+            # self.radio.send(self.world.n_robots, control_output)
+
         logging.info("System stopped")
+
