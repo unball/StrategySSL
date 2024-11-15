@@ -102,13 +102,22 @@ class Loop:
                 self.UVF_screen.updateScreen()
 
         ##[ATENCAO] Se conseguirmos receber start ou stop do game controller pode ser que role algo tipo 
+        # podemos receber start ou stop a partir de um input digitado pelo terminal tbm 
         # if(recebemos comando de start) -> enviar control_output[(10,0,0)] por 5segundos e depois control_output[(-10,0,0)] 
         # em teoria com isso o robo vai para um lado por 5 segundos e depois para outro por 5 segundos. Nesse caso tem que comentar self.loop 
-        # Vai ficar um codigo dentro do def run(): tipo assim
+        # Vai ficar um codigo dentro do def run(): tipo assim --> 
+
+        # enquanto o usuario nao digitar 'p' no terminal: 
         # i = 1
         # for (5 sengundos):
             # control_output = [(10*i,0,0)]
         # i *= -1
+        # if self.execute:
+            # for robot in self.world.raw_team: 
+            #     if robot is not None: robot.turnOn()   
+            # self.radio.send(self.world.n_robots, control_output)
+        # se usuario digitou p no terminal
+        # control_output = [(0,0,0)]
         # if self.execute:
             # for robot in self.world.raw_team: 
             #     if robot is not None: robot.turnOn()   
