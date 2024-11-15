@@ -90,6 +90,7 @@ class World:
         self.updateCount = 0
 
     def update_main_vision(self, message):
+        #Atribuicao de times
         if self.team_yellow: 
             yellow = self.team
             blue = self.enemies
@@ -97,32 +98,29 @@ class World:
             yellow = self.enemies
             blue = self.team
 
-        robot_id = 0
-        for robot in range(message["n_robots"]):
-            if self.team_yellow: 
-                yellow[robot_id].update(
-                    message["robots"][robot_id]["pos_x"], 
-                    message["robots"][robot_id]["pos_y"], 
-                    message["robots"][robot_id]["th"], 
-                    message["robots"][robot_id]["vel_x"], 
-                    message["robots"][robot_id]["vel_y"], 
-                    message["robots"][robot_id]["w"]
-                )
-            else:
-                blue[robot_id].update(
-                    message["robots"][robot_id]["pos_x"], 
-                    message["robots"][robot_id]["pos_y"], 
-                    message["robots"][robot_id]["th"], 
-                    message["robots"][robot_id]["vel_x"], 
-                    message["robots"][robot_id]["vel_y"], 
-                    message["robots"][robot_id]["w"]
-                )
-            robot_id+=1
+        for robot_id in range(3):
+            #Atualiza as variaveis de estado do sistema
+            yellow[robot_id].update(
+                message['robotsYellow'][robot_id]['x']
+                message['robotsYellow'][robot_id]['y']
+                message['robotsYellow'][robot_id]['theta']
+            )            
+            blue[robot_id].update(
+                message['robotsBlue'][robot_id]['x']
+                message['robotsBLue'][robot_id]['y']
+                message['robotsBLue'][robot_id]['theta']
+            )
+
+            yellow[robot_id].calc_velocities(self.dt)
+            blue[robot_id].calc_velocities(self.dt)
        
-        self.ball.update_element(message["ball"]["pos_x"], message["ball"]["pos_y"], message["ball"]["vel_x"], message["ball"]["vel_y"])
-        self.checkBatteries = message["check_batteries"]
-        self.manualControlSpeedV = message["manualControlSpeedV"]
-        self.manualControlSpeedW = message["manualControlSpeedW"]
+       #Atualiza as variaveis da bola
+        self.ball.update_element(message["ball"]["x"], message["ball"]["y"])
+        self.ball.calc_velocities(self.dt)
+
+        #Atualiza o tempo atual
+        self.dt = time.time() - self._referenceTime
+        self._referenceTime = time.time()
 
         self.updateCount += 1
      
